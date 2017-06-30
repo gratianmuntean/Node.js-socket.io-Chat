@@ -100,10 +100,10 @@ iframe, img
 #room option{
     color:#000;
 }
-/*#room[disabled] {
+#room[disabled] {
 font-style: italic;
     color:rgba(255,255,255,0.5);
-}*/
+}
 /*#liveCode{*/
     /*background: no-repeat center center fixed;*/
 /*}*/
@@ -237,7 +237,7 @@ form button {
 
 .ScrollStyle {
     max-height: 65vh;
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .triangle-right {

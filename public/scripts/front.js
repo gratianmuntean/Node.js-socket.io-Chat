@@ -12,23 +12,24 @@ var rightArrow = $('<span class="triangle-right"></span>');
 var leftArrow = $('<span class="triangle-left"></span>');
 var realTimeForMessages = ($('<span id="time"></span>'));
 var duplicateBoolean=false;
+// var continueCounter = 1;
 var checkBoolean = true;
-
-//Main form !!!
 $('.formShow').submit(function(){
     $('.ScrollStyle').animate({scrollTop: $('.ScrollStyle').height()}, 99600);
-    //Case 1: the user is not logged
+    // if (duplicateBoolean===false){
     if (username === '')
     {
-
         var subStringOnError = "<onError";
         var subStringonerror = "<onerror";
         var subStringScript = "<script";
         var subStringFrame = "<iframe";
         var subStringStyle = "<style";
         var IveNotAllowed = /(ive)/gi;
+        //socket.emit('usersList', listOfUsers);
+        // var isLetter = !String.IsNullOrEmpty($('#input-message').val()) && Char.IsLetter($('#input-message').val()[0]);
+        // console.log(isLetter);
 
-        //Tags not allowed in messages !
+
         if ($('#input-message').val() === '')
         {
             alert('Please type something before pressing enter!');
@@ -52,29 +53,26 @@ $('.formShow').submit(function(){
             alert('This name is not allowed !!!');
         }
         else{
-            //Send the username value to back-end event
             socket.emit('username', $('#input-message').val());
             username = $('#input-message').val().bold();
             $('#input-message').val('');
             $('#input-message').attr('placeholder', 'Your message...');
-
+                console.log(username);
             //create cookie for user:
             document.cookie = "userNameCookie=" + username;
+            console.log("ASTA CE O MAI FIIII?" +username);
+                console.log("sunt eu la calculator? " + userBoolean);
         }
 
         //alert(x);
         return false;
 
-        //Case 2: the user is logged
     }else{
-
         var subStringOnError = "<onError";
         var subStringonerror = "<onerror";
         var subStringScript = "<script";
         var subStringFrame = "<iframe";
         var subStringStyle = "<style";
-
-        //Tags not allowed in messages !
         if ($('#input-message').val() === '')
         {
             alert('Please type something before pressing enter!');
@@ -102,24 +100,34 @@ $('.formShow').submit(function(){
                 }
                 return i;
             }
-
-            //Show time for messages !
             var today = new Date();
             var h = today.getHours();
             var m = today.getMinutes();
            // var s = today.getSeconds();
             m = checkTime(m);
-
-            //Send the message to the back-end event !
+            //s = checkTime(s);
         socket.emit('chat message',  username + "<br/>" + $('#input-message').val() + "<p class='editTime'>"+h+ ":" + m+"</p>");
         //showTime();
         $('#input-message').val('');
+
+
+            //      $.getJSON("http://192.168.105.41:3000/rooms.json", function(datarooms) {
+            //          // console.log("obiectul venit de pe front este: ");
+            //          // console.log(datarooms);
+            //
+            // $.each(datarooms, function (key, val) {
+            //     $('#room').append("<option value=" + val.name + " data-embeddedVideo=" + val.embeddedVideo + ">" + val.name + "</option>");
+            // });
+            // });
+
         }
         return false;
     }
 });
+    // }
+    // else
+    //     {
 
-        //Form if there are two users with the same username
             $('.popUpForm').submit(function(){
 
                     var subStringOnError = "<onError";
@@ -128,8 +136,13 @@ $('.formShow').submit(function(){
                     var subStringFrame = "<iframe";
                     var subStringStyle = "<style";
 
-                //Tags not allowed in messages !
-                if ($('.popUpInputUser').val() === '')
+                    //socket.emit('usersList', listOfUsers);
+                    // var isLetter = !String.IsNullOrEmpty($('#input-message').val()) && Char.IsLetter($('#input-message').val()[0]);
+                    // console.log(isLetter);
+
+
+
+                    if ($('.popUpInputUser').val() === '')
                     {
                         alert('Please type something before pressing enter!');
                     }
@@ -152,9 +165,13 @@ $('.formShow').submit(function(){
                         socket.emit('username', $('.popUpInputUser').val());
                         username = $('.popUpInputUser').val().bold();
                         $('.popUpInputUser').val('');
+                       // $('#input-message').attr('placeholder', 'Your message...');
+                        console.log(username);
                         //create cookie for user:
                         document.cookie = "userNameCookie=" + username;
+                        console.log("sunt eu la calculator? " + userBoolean);
                         $('.pop-outer').fadeOut('slow');
+
 
                     return false;
                 }
@@ -162,7 +179,7 @@ $('.formShow').submit(function(){
 
             });
 
-            //Form if the user wants to change his username
+
             $('.popUpFormReset').submit(function() {
 
                 var subStringOnError = "<onError";
@@ -170,6 +187,12 @@ $('.formShow').submit(function(){
                 var subStringScript = "<script";
                 var subStringFrame = "<iframe";
                 var subStringStyle = "<style";
+
+                //socket.emit('usersList', listOfUsers);
+                // var isLetter = !String.IsNullOrEmpty($('#input-message').val()) && Char.IsLetter($('#input-message').val()[0]);
+                // console.log(isLetter);
+
+
 
                 if ($('.popUpInputUserReset').val() === '')
                 {
@@ -194,8 +217,11 @@ $('.formShow').submit(function(){
                     socket.emit('usernameReset', $('.popUpInputUserReset').val());
                     username = $('.popUpInputUserReset').val().bold();
                     $('.popUpInputUserReset').val('');
+                    // $('#input-message').attr('placeholder', 'Your message...');
+                    console.log(username);
                     //create cookie for user:
                     document.cookie = "userNameCookie=" + username;
+                    console.log("sunt eu la calculator? " + userBoolean);
                     $('.pop-outer-reset').fadeOut('slow');
                     return false;
 
@@ -204,37 +230,44 @@ $('.formShow').submit(function(){
                 return false;
             });
 
-    //Front-end event to display messages depending according to who is typing
+
+
+
+
+
 
     socket.on('chat message', function (msg, list) {
         var usernameee = msg.split('<br/>')[0];
         $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-
+        //alert(msg);
+        console.log('incepe socket on');
             var x = getCookie();
 
+        console.log('SOCKETUUL MEU ESTE: ', x);
             if (x===usernameee)
             {
-                //Messages coming from me !
+                //messages coming from me !
                 $('#messages').append($('<li class="messagesByMeClass">').html(msg));
+                // $('#messages').append($('<li class="messagesByMeClass">').html());
                 $('.messagesByMeClass').append(rightArrow);
                 $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
 
             }else {
-                //Messages coming from other users !
+                //messages coming from other users !
                 $('#messages').append($('<li class="messagesClass">').html(msg));
                 $('.messagesClass').append(leftArrow);
                 $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
             }
-            //Remove the first message when the length of the list is 30.
             if(list.length>30){
                 $('#messages li').first().remove();
             }
+           console.log('lista are: ' + list.length + ' elemente ');
 
 
-
+       // }
     });
 
-    //Front-end event who allows the user to rechange the username
+                // DEMMOO PENTRU maxim 180 CARACTERE PE LI EMIS !!     http://jsfiddle.net/3uhNP/1/
      socket.on('popUpUser', function (usr){
          var x = getCookie();
          var match, userName= "",
@@ -247,49 +280,51 @@ $('.formShow').submit(function(){
 
 
         });
-
-    //Front-end event in case that there are 2 users with the same username
      socket.on('duplicated user', function(usr){
          $('.pop-outer').fadeIn(400);
      });
 
-    //Front-end event to display who connected to chat !
-     socket.on('userEnter', function (usr){
 
-         $('#messages').append($('<li class="userNotClass">').html(usr + " has CONNECTED to chat....."));
-         $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-     });
-
-      //Front-end event to display who changed his username
-     socket.on('userRename', function(usr, usrNew){
-
-         $('#messages').append($('<li class="userNotClass">').html("<b>"+ usr+ "</b>"+ " "+ "renamed into: " + " " + "<b>"+ usrNew+ "</b>"));
-         $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-     });
+    socket.on('userEnter', function (usr){
+        $('#messages').append($('<li class="userNotClass">').html(usr + " has CONNECTED to chat....."));
+        console.log('userul conectat este:', usr);
+        $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+    });
 
 
-    //Front-end event to display who disconnected from chat
+    socket.on('userRename', function(usr, usrNew){
+
+        $('#messages').append($('<li class="userNotClass">').html("<b>"+ usr+ "</b>"+ " "+ "renamed into: " + " " + "<b>"+ usrNew+ "</b>"));
+        $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+    });
+
+
+
     socket.on('messageDisconnect', function(abc){
 
         $('#messages').append($('<li class="userNotClass">').html(abc + " has DISCONNECTED from chat !!!"));
         $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
     });
 
-    //Front-end to display the history to a new connected user
     socket.on('new history', function (room, emittedMessages, emittedMessagesLength) {
             if (username=== ''){
 
-                $('#messages').append($('<li class="messagesClass">').html(emittedMessages));
-                $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-            }
 
-            //Remove first emitted message when the list reaches the length=30
-            while ($('#messages li').length>30) {
-                $('#messages li').first().remove();
-            }
+            $('#messages').append($('<li class="messagesClass">').html(emittedMessages));
+            //$('.messagesClass').append(leftArrow);
+            $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+
+        }
+
+        while ($('#messages li').length>30) {
+
+            $('#messages li').first().remove();
+
+            //  emittedMessageLength--;
+
+        }
     });
 
-    //TODO this front-end event can be used to display a real time list with connected users !
     // socket.on('usersList', function(list){
     //     console.log('Lista de useri actuali este urmatoarea: ');
     //     // socket.emit('username', $('#input-message').val());
@@ -302,18 +337,18 @@ $('.formShow').submit(function(){
     // });
 
 
-    //Front-end event to display how many users are logged with username
-    socket.on('message', function(count) {
-        $('#countUsers').html(count);
-    });
 
-    //Front-end event to display how many users are logged without username
+    socket.on('message', function(count) {
+
+        $('#countUsers').html(count);
+
+    });
     socket.on('messageM', function(totalUsers, room){
         $('#totalUsr').html(totalUsers);
     });
 
 
-    //Chat button - visibility function
+
     showButton.click(function(){
         var link = $(this);
             $('#hideChat').slideToggle(function(){
@@ -326,9 +361,12 @@ $('.formShow').submit(function(){
                 }
                 $('#gratianscroll').mCustomScrollbar("scrollTo",99600);
             });
+
+       // $('#gratianscroll').mCustomScrollbar("scrollTo",99600);
+
+
     });
 
-    //Quit button function for popups
     closePopUp.click(function(){
        $('.pop-outer-reset').fadeOut('slow');
     });
@@ -337,22 +375,25 @@ $('.formShow').submit(function(){
        $('.pop-outer-reset').fadeToggle('slow');
     });
 
-    //function for the Custom ScrollBar
+
+
+                            //DEMOOOO pentru HIDE / CHAT : http://jsfiddle.net/9EFNK/7/
+
     (function($){
         $(window).on("load",function(){
             $(".ScrollStyle").mCustomScrollbar({
                 theme: "light-3"
             });
         });
+        //$("html, body").animate({ scrollTop: $(document).height() }, "slow");
     })(jQuery);
 
-    //Function to get cookie for users
     function getCookie() {
         var cookieValue = document.cookie.split('userNameCookie=')[1];
         return cookieValue;
     }
 
-    //Front-end event to set the limit of characters on username and messages !
+
     socket.on('limitOfCharacters' , function(usrBoolean, usersPerRoom){
         if (usrBoolean===false){
             $('#input-message').attr("maxlength", 180);
@@ -363,65 +404,91 @@ $('.formShow').submit(function(){
 
     });
 
-    //Front-end event to enable the select for the users who have username
-    socket.on('allow access rooms', function(roomsl){
-        if (roomsl<=1){
-            $('#room').attr('disabled', true);
-        }else{
-            $('#room').attr('disabled', false);
-            }
+            socket.on('allow access rooms', function(usr){
+                 $('#room').prop('disabled', false);
+
         });
 
-    //Front-end event to display who left a room and joined another one
-    socket.on('change room notification', function(usr, room, newRoom){
+            socket.on('change room notification', function(usr, room, newRoom){
                 $('#messages').append($('<li class="userNotClass">').html(usr + ' left '+  '<b>' + room + '</b>' + ' and joined ' + '<b>' +newRoom + '</b>'));
                 $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-        });
 
-    //Front-end event to display a welcome message to the user who joined a new room
-    socket.on('initial message', function(room){
+            });
+
+            socket.on('initial message', function(room){
                 $('#messages').append($('<li class="messagesClassWelcome">').html("Welcome to " + room + " !!"));
                 $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-        });
 
 
-    //Front-end event to display the history for each room
-    socket.on('history per rooms', function(room, emittedMessages, emittedMessageLength){
+            });
+
+            socket.on('history per rooms', function(room, emittedMessages, emittedMessageLength){
+
+                   // $('#messages').append($('<li class="messagesClass">').html("Welcome to " + room + " !!!"));
+                   // $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+               // console.log($('#ulForCopy li'));
+                // alert('acum vine lista ce vine apenduita gen: ');
+                console.log(emittedMessages);
+                console.log(emittedMessageLength);
+
+
+                //alert('Lengthul listei este: ' +$('#messages li').length);
+
 
                 $('#messages').append($('<li class="messagesClass">').html(emittedMessages));
                 $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+                //$('#messages').innerHTML = $('#ulForCopy').innerHTML;
 
                  if (emittedMessageLength===0){
                          $('#messages li').remove();
 
-                 }
-                 else if (emittedMessageLength<30){
+                 }else if (emittedMessageLength<30){
                     while ($('#messages li').length>emittedMessageLength){
                         $('#messages li').first().remove();
                     }
                  }
                  else{
-                     while ($('#messages li').length>30) {
-                         $('#messages li').first().remove();
-                     }
+
+
+                    while ($('#messages li').length>30) {
+
+                        $('#messages li').first().remove();
+
+                        //  emittedMessageLength--;
+
+                    }
                  }
 
                 $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+
+            //socket.emit('initial message', room, emittedMessages, emittedMessageLength);
+
+
+
+
+
+
+
+
             });
 
-    //Front-end event
     socket.on('config new room', function(newRoom, usr, rooms){
+        console.log('Camera in care a intrat ' + usr + ' este: ' + newRoom);
+
 
         if (newRoom !== rooms[0].name) {
+
             $('.eyeOpen').hide();
             $('#totalUsr').hide();
         } else {
             $('.eyeOpen').show();
             $('#totalUsr').show();
-        }
-         });
 
-    //Front-end event who announce with an alert when a new room has been added or eddited !
+        }
+        // socket.emit('data event', data);
+         });
+  // });
+
     socket.on('alert to refresh', function(usr){
 
             var r = confirm("A new room has been added or edited, please reload");
@@ -432,109 +499,121 @@ $('.formShow').submit(function(){
             else {
                 return 0;
             }
+
+
+
     });
 
-    //Front-end event who can compare the back-end DB with the front-end DC in real time (with back-end events)
     socket.on('real time comparing', function(rooms){
-        $.getJSON("config.json", function(json) {
-            $.getJSON(json.base_url + "/chatRoom/getAllPublicAndActiveChatRooms", function (data) {
-                socket.emit('edit rooms depending on DB', data);
-            });
+        $.getJSON("http://192.168.105.41:8080//ive/chatRoom/getAllPublicAndActiveChatRooms", function(data) {
+            socket.emit('edit rooms depending on DB', data);
         });
     });
 
-    //Front-end event to display the iframe for each room depending on DB
      socket.on('roomsForFront', function(rooms){
          $('#room').empty();
+        $.getJSON("config.json", function(json){
+            console.log(json);
 
-         $.getJSON("config.json", function(json){
 
-            $.getJSON(json.base_url+"/chatRoom/getAllPublicAndActiveChatRooms", function(data) {
+        $.getJSON(json.base_url+"/chatRoom/getAllPublicAndActiveChatRooms", function(data) {
+            console.log("obiectul venit de pe front este: ");
 
-                var room = $('#room').val();
-                var counterRooms=0;
-
+            var room = $('#room').val();
         $.each(data, function (key, val) {
-            counterRooms++;
             var oldSrc="";
             var newSrc="";
-            oldSrc=$(val.embeddedVideo).attr('src');
+            //if (val.embeddedVideo!==''){
 
+            oldSrc=$(val.embeddedVideo).attr('src');
             var youtube = oldSrc.search(/youtube.com/i);
             var vimeo = oldSrc.search(/vimeo.com/i);
-            var firstOrSecond = oldSrc.search(/\?/i);
+            var firstOrSecond = oldSrc.search(/'?'/i);
 
-            if ((youtube>=0) && (firstOrSecond>=0)){
-                    newSrc=oldSrc+"&autoplay=1";
-            }
-            else if((youtube>=0) && (firstOrSecond<0)){
-                    newSrc=oldSrc+"?autoplay=1";
-            }
-            else {
+            if (youtube>0){
+                if (firstOrSecond>0){
+                newSrc= oldSrc+"&autoplay=1";
+                }else{
+                    newSrc= oldSrc+"?autoplay=1";
+
+                }
+
+            }else if (vimeo>0)
                 newSrc=oldSrc+"&autoplay=1";
+            else {
+                newSrc=oldSrc;
             }
+            //}
 
-            var iframeHTML=$(val.embeddedVideo).attr('src',newSrc).prop('outerHTML');
-            $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
-            $('#room').append("<option  id="+counterRooms+" value='" + val.name + "' data-embeddedVideo='" + iframeHTML + " ' data-imageURL='" + val.image+"'>" + val.name + "</option>");
-        });
+            val.embeddedVideo = val.embeddedVideo.replace(oldSrc, newSrc);
+
+             $('#room').append("<option id='iFrame' value='" + val.name + "' data-embeddedVideo='" + val.embeddedVideo + " ' data-imageURL='" + val.image+"'>" + val.name + "</option>");
 
 
-            var newQuery = function (){
-                var baseURL = window.location.href;
-                if (baseURL.indexOf('#')!==-1){
-                    baseURL = baseURL.substring(0, baseURL.indexOf('#'));
-                    var s =window.location.href;
-                    s = s.substring(s.indexOf('=')+1, s.length);
-                }
-                if (s!== undefined && s!== ''){
-                    $('#room').val(s);
-                    socket.emit('choose room', $('#room').val());
-                }
-            }();
+            });
 
-                changeEnvironment($('option:selected', room).attr('data-embeddedVideo'),$('option:selected', room).attr('data-imageURL'));
-            $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
+            socket.emit('edit rooms depending on DB', data);
+            // var title=($('option:selected', room).attr('data-embeddedVideo'));
+            // console.log(title[0].setAttribute('autoplay', 'true'));
+            //
+            changeEnvironment($('option:selected', room).attr('data-embeddedVideo'),$('option:selected', room).attr('data-imageURL'));
+
             });
         });
     });
 
-    //Function for changing the room
-    $('#room').change(function(e){
-        var room = $('#room').val();
 
-        //adding params to URL
-        var  _url = window.location.href;
-        _url = _url.substring(0, _url.indexOf('#'));
-        _url = _url + "#room=" + room;
-        window.location.href = _url;
-        //end adding params
-        changeEnvironment($('option:selected', this).attr('data-embeddedVideo'),$('option:selected', this).attr('data-imageURL'));
+
+
+
+    //});
+    $('#room').change(function(){
+      //  $.getJSON("http://192.168.105.41:3000/rooms.json", function(data) {
+        //var codes = data.embeddedCodes;
+            //console.log(data.rooms[2].color);
+            var room = $('#room').val();
+       changeEnvironment($('option:selected', this).attr('data-embeddedVideo'),$('option:selected', this).attr('data-imageURL'));
+    console.log('CE ESTE THIS ', +this);
 
 
         socket.emit('choose room', $('#room').val());
+        console.log('Acum camera este: '+ $('#room').val());
         $(".dropbtn").html($('#room').val());
         $('#messages').append($('<li class="userNotClass">').html('Welcome to room: ' +$('#room').val()));
         $('.ScrollStyle').mCustomScrollbar("scrollTo",99600);
         });
+    //});
 
-    changeEnvironment = function (_embeddedLink,_imageURL){
+
+        changeEnvironment = function (_embeddedLink,_imageURL){
+
             $('#liveCode').fadeOut('slow');
             setTimeout(function(){ $('#liveCodel').fadeIn('slow')}, 1800);
-                if (_embeddedLink==' '){
-                    useImage(_imageURL);
-                 }else{
-                    $('#liveCodeWrapper').empty();
-                    $('#liveCodeWrapper').append(_embeddedLink);
-                }
-    };
+
+            //title[0].attr("autoplay", "1");
+
+            if (_embeddedLink==' '){
+
+                // $('#liveCode').css('background-image', 'url("https://streamplaygraphics.com/wp-content/uploads/edd/2016/05/Singularity-Twitch-Offline-Banner-2.png")');
+                // $('#liveCode').css('background-size', '100%');
+                useImage(_imageURL);
+            }
+            else{
+                $('#liveCodeWrapper').append(_embeddedLink);
+
+
+            }
+
+        }
         useImage = function(_imageURL){
+
+            //$('#liveCode').css('background-image', 'url("https://streamplaygraphics.com/wp-content/uploads/edd/2016/05/Singularity-Twitch-Offline-Banner-2.png")');
             $('#liveCode').attr("src","");
             $('#liveCode').css('background-image', 'url(' + _imageURL + ')');
             $('#liveCode').css('background-size', '100%');
             $('#liveCode').css('background-repeat', 'no-repeat');
             $('#liveCode').css('background-position', 'center center');
-        };
+        }
 
 
 
