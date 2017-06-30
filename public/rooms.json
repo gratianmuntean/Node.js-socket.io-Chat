@@ -1,0 +1,48 @@
+[
+               {"id": "1",
+               "name": "GICU",
+               "embeddedCode": "https://www.youtube.com/embed/2nk6gAyKaLA?autoplay=1&showinfo=0&controls=0",
+               "listOfUsers": [],
+               "countUsersByConnection": "0",
+               "countUsersByUsername": "0",
+               "emittedMessages": []},
+
+               {"id": "2",
+               "name": "Live Music",
+               "embeddedCode": "https://www.youtube.com/embed/4KJpXriYC9A?autoplay=1&showinfo=0&controls=0",
+               "listOfUsers": [],
+               "countUsersByConnection": "0",
+               "countUsersByUsername": "0",
+               "emittedMessages": []},
+
+
+               {"id": "3",
+               "name": "Pass it on",
+               "embeddedCode": "https://player.twitch.tv/?channel=livestreamtwitch1234",
+               "listOfUsers": [],
+               "countUsersByConnection": "0",
+               "countUsersByUsername": "0",
+               "emittedMessages": []},
+
+               {"id": "4",
+               "name": "Parking 1",
+               "embeddedCode": "https://www.youtube.com/embed/2nk6gAyKaLA?autoplay=1&showinfo=0&controls=0",
+               "listOfUsers": [],
+               "countUsersByConnection": "0",
+               "countUsersByUsername" : "0",
+               "emittedMessages": []},
+
+
+               {"id": "5",
+               "name": "Parking 2",
+               "embeddedCode": "https://player.twitch.tv/?channel=livestreamtwitch1234",
+               "listOfUsers": [],
+               "countUsersByConnection": "0",
+               "countUsersByUsername": "0",
+               "emittedMessages": []}
+
+
+
+
+
+]

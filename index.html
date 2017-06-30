@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IVE Chat</title>
+
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+</head>
+
+
+<body>
+<img src="loadingImage.jpg"
+style="position:fixed; width:100%; height: 100%; z-index:-16"/>
+<!--<iframe style="display:none;" id="liveCode" src="https://www.youtube.com/embed/2nk6gAyKaLA?autoplay=1&showinfo=0&controls=0" frameborder="0" allowfullscreen class="EmbedVideo"></iframe>-->
+
+<div id="liveCodeWrapper"></div>
+<!--STREAM FUNCTIONAL - CANAL TWITCH -->
+
+<!--<iframe src="https://player.twitch.tv/?channel=livestreamtwitch1234" autoplay="1" frameborder="0" scrolling="no" controls="no" class="EmbedVideo"></iframe>-->
+
+
+<!--<i class="glyphicon glyphicon-remove leaveRoom"></i>-->
+
+<div class="realTimeUserList">
+
+</div>
+
+<div class="dropdown">
+
+    <!--</ul>-->
+    <form action="">
+        <select name="room" id="room">
+        </select>
+        <br>
+    </form>
+
+</div>
+
+<div  id="chat-box">
+<div id="hideChat">
+    <div class="ScrollStyle" id="gratianscroll">
+
+    <ul id="messages">
+
+    </ul>
+
+        <ul id="ulForCopy"></ul>
+        <ul id="ulForAppend"></ul>
+    </div>
+    <!--<input id="usn" autocomplete="off" placeholder="Type ur username..." /><button id='but'>type ur username</button>-->
+    <form action="" class="formShow">
+            <div class="divInputMessage">
+        <input type="text" maxlength="20" id="input-message" autocomplete="off" placeholder="Hi stranger. Type your name"/>
+        <button><i class="glyphicon glyphicon-send send" ></i></button>
+            </div>
+
+    </form>
+
+
+
+</div>
+<div class="underInput">
+    <span class="realTime"></span>
+    <span class="glyphicon glyphicon-tag userPopUp"></span>
+    <i class="fa fa-eye eyeOpen"></i>
+    <span id="totalUsr"></span>
+    <i class="glyphicon glyphicon-user userNr"></i>
+    <span class="userNr" id="countUsers"></span>
+
+</div>
+<div class="bottomInput">
+    <!--<div class="iconColorRadius">-->
+    <i class="glyphicon glyphicon-send backTry"></i>
+    <!--</div>-->
+        <span class="changeName">HIDE</span>
+
+</div>
+
+</div>
+
+<div class="pop-outer">
+    <div class="popUpUser">
+        <form action="" class="popUpForm">
+            <div class="popUpFormFirstDiv">
+                <p>This username already exists!</p>
+                <p>Please insert a new one:</p>
+            </div>
+            <div class="popUpFormSecondDiv">
+                <input type="text" id="new-input-message" autocomplete="off" class="popUpInputUser" name="New Username" autofocus/>
+            </div>
+            <button class="button-2-small primary-bg-2 save">Save</button>
+        </form>
+
+    </div>
+</div>
+
+<div class="pop-outer-reset">
+    <div class="popUpUserReset">
+        <form action="" class="popUpFormReset">
+            <div class="popUpFormFirstDiv">
+                <i class="glyphicon glyphicon-remove quitPopUp"></i>
+                <p>Type below to reset your username...</p>
+            </div>
+            <div class="popUpFormSecondDiv">
+                <input type="text" id="reset-input-message" autocomplete="off" class="popUpInputUserReset" name="New Username" autofocus/>
+            </div>
+            <!--<hr style="box-shadow:0 0 10px 3px orangered">-->
+
+            <button class="button-2-small primary-bg-2 save">Save</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://yourwebsite.com:12345/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<!--<script src="public/scripts/jquery.nicescroll.min.js"></script>
+<script src="public/scripts/jquery.nicescroll.js"></script>-->
+<!--<script type="text/javascript" src="rooms.json"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="scripts/front.js"></script>
+<!--<script src="public/index.js"></script>-->
+
+
+
+
+</body>
+</html>
